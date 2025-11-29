@@ -8,6 +8,9 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.9"
 
+[project.scripts]
+htv-search = "yt_dlp_plugins.htv_search:htv_search"
+
 [tool.poetry]
 packages = [{ include = "yt_dlp_plugins" }]
 
