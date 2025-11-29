@@ -24,7 +24,7 @@ class HanimeTVIE(InfoExtractor):
             return self.url_result(urljoin('https://hanime.tv/playlists/', playlist_id),
                                    ie=HanimeTVPlaylistIE.ie_key())
 
-        page = self._download_json('https://h.freeanimehentai.net/api/v8/video', video_id, query={'id': video_id})
+        page = self._download_json('https://cached.freeanimehentai.net/api/v8/video', video_id, query={'id': video_id})
         formats = []
 
         video = page['hentai_video']
@@ -65,7 +65,7 @@ class HanimeTVPlaylistIE(InfoExtractor):
         playlist_id = self._match_id(url)
 
         # Official website does 24 hits/request; we do the same.
-        init_page = self._download_json('https://h.freeanimehentai.net/api/v8/playlist_hentai_videos', None, headers={
+        init_page = self._download_json('https://cached.freeanimehentai.net/api/v8/playlist_hentai_videos', None, headers={
                 'X-Signature-Version': 'web2'
             }, query={
                 'playlist_id': playlist_id,
@@ -80,7 +80,7 @@ class HanimeTVPlaylistIE(InfoExtractor):
         def fetch_page(pagenum):
             # Re-use the cached page.
             page = init_page if pagenum == 0 else self._download_json(
-                'https://h.freeanimehentai.net/api/v8/playlist_hentai_videos', None,
+                'https://cached.freeanimehentai.net/api/v8/playlist_hentai_videos', None,
                 headers={
                     'X-Signature-Version': 'web2'
                 }, query={
